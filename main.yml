@@ -1,0 +1,35 @@
+---
+- name: Install and Configure Monitorix
+  hosts: all
+  vars:
+   firewalld: true
+   epel: true
+  tasks:
+    - name: Install Epel Repo
+      package:
+        name: epel-release
+        state: present
+      when: epel
+    - name: Install Monitorix
+      package:
+        name: monitorix
+        state: present
+    - name: Create Firewalld Service
+      copy:
+        src: templates/firewalld
+        dest: /etc/firewalld/services/monitorix.xml
+        owner: root
+        group: root
+        mode: 0644
+      when: firewalld
+    - name: Configure Firewalld
+      firewalld:
+        service: monitorix
+        permanent: yes
+        state: enabled
+      when: firewalld
+    - name: Start and Enable Monitorix
+      service:
+        name: monitorix
+        state: started
+        enabled: yes

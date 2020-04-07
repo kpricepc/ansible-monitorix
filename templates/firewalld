@@ -1,0 +1,5 @@
+<service>
+  <short>monitorix</short>
+  <description>Monitorix System Monitoring</description>
+  <port protocol="tcp" port="8080"/>
+</service>
