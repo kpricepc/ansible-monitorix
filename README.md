@@ -19,3 +19,9 @@ Example hosts file disabling Key Checking...
 [all:vars]
 ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
 ```
+
+You should now be able to access Monitorix via a WebUI
+
+Example...
+
+http://192.168.0.20:8080/monitorix/
