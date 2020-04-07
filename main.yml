@@ -22,11 +22,16 @@
         group: root
         mode: 0644
       when: firewalld
+      register: profile
+    - name: Refresh Firewalld
+      command: firewall-cmd --reload
+      when: profile.changed
     - name: Configure Firewalld
       firewalld:
         service: monitorix
         permanent: yes
         state: enabled
+        immediate: yes
       when: firewalld
     - name: Start and Enable Monitorix
       service:
